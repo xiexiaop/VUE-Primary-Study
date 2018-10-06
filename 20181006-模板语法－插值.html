@@ -1,0 +1,40 @@
+<script src="vue.js"></script>
+
+<div id="templateInsertValue">
+  <!-- 文本 -->
+  <span>Message: {{ msg }}</span>
+  <!-- 使用 JavaScript 表达式 -->
+  <div>
+    <span>Reversed Message: {{ msg.split('').reverse().join('') }}</span>
+  </div>
+  <!-- v-once -->
+  <div>
+    span v-once>这个将不会改变: {{ msg }}</span>
+  </div>
+  <!-- 原始 HTML -->
+  <div>
+    <p>Using mustaches: {{ rawHtml }}</p>
+  </div>
+  <div>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+  </div>
+  <!-- 特性 -->
+  <div>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#templateInsertValue',
+    data: {
+      msg: 'Hello World',
+      rawHtml: '<span style="color:red">This should be red</span>',
+      isButtonDisabled: false
+    },
+    methods: {
+
+    }
+  })
+
+</script>
