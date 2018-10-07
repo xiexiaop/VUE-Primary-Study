@@ -1,0 +1,32 @@
+<script src="vue.js"></script>
+
+<!-- 指令 (Directives) -->
+<div id="templateDirectives">
+  <!-- v-if -->
+  <p v-if="seen">现在你看到我了</p>
+
+  <!-- v-bind -->
+  <!-- v-on -->
+  <!-- v-bind: ＝ ： -->
+  <!-- v-on: ＝ @ -->
+  <a v-bind:href="url" v-on:click="doSomething">v-bind-url</a>
+  <div>
+    <a :href="url" @click="doSomething">v-bind:[:] && v-on:[@]缩写</a>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#templateDirectives',
+    data: {
+      seen: true,
+      url: 'https://www.baidu.com'
+    },
+    methods: {
+      doSomething: function () {
+        alert("You clicked me!");
+      }
+    }
+  })
+
+</script>
