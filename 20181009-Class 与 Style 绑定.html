@@ -1,0 +1,32 @@
+<script src="vue.js"></script>
+<!-- Class 与 Style 绑定 -->
+<div id="bindClassAndStyle" v-bind:style="styleObject">
+  <p>Class 与 Style 绑定</p>
+</div>
+
+<script>
+  var vm = new Vue({
+    el: '#bindClassAndStyle',
+    data: {
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      }
+    },
+    computed: {
+
+    },
+
+    watch: {
+
+    },
+
+    created: function () {
+
+    },
+
+    methods: {
+
+    }
+  })
+</script>
