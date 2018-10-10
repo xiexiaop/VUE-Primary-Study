@@ -1,0 +1,83 @@
+<script src="vue.js"></script>
+<!-- 条件渲染 -->
+<!-- 一般来说，v-if 有更高的切换开销，
+ v-show 有更高的初始渲染开销。
+ 因此，如果需要非常频繁地切换，
+ 则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。 -->
+<div id="conditionRender">
+  <p>条件渲染</p>
+  <div>
+    <h1 v-if="ok">Yes</h1>
+    <h1 v-else>No</h1>
+  </div>
+  <!-- 在 <template> 元素上使用 v-if 条件渲染分组 -->
+  <div>
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+  </div>
+  <!-- v-else -->
+  <div>
+    <div v-if="Math.random() > 0.5">
+      Now you see me
+    </div>
+    <div v-else>
+      Now you don't
+    </div>
+  </div>
+
+  <!-- v-else-if -->
+  <div v-if="type === 'A'">
+    A
+  </div>
+  <div v-else-if="type === 'B'">
+    B
+  </div>
+  <div v-else-if="type === 'C'">
+    C
+  </div>
+  <div v-else>
+    Not A/B/C
+  </div>
+
+  <!-- 用 key 管理可复用的元素 @TODO...... -->
+  <template v-if="loginType === 'username'">
+    <label>Username</label>
+    <input placeholder="Enter your username" key="username-input">
+  </template>
+  <template v-else>
+    <label>Email</label>
+    <input placeholder="Enter your email address" key="email-input">
+  </template>
+
+  <!-- 带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 只是简单地切换元素的 CSS 属性 display -->
+  <div v-show="ok">V-show</div>
+</div>
+
+<script>
+  var vm = new Vue({
+    el: '#conditionRender',
+    data: {
+      ok: false,
+      type: '',
+      loginType: "username"
+    },
+    computed: {
+
+    },
+
+    watch: {
+
+    },
+
+    created: function () {
+
+    },
+
+    methods: {
+
+    }
+  })
+</script>
