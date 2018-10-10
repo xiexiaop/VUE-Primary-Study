@@ -1,0 +1,135 @@
+<script src="vue.js"></script>
+<!-- 列表渲染 -->
+<div id="listRender">
+  <ul>
+    <li v-for="item in items" :key="item.id">
+      {{ item.message }}
+    </li>
+  </ul>
+
+  <!-- <ul>
+    <li v-for="(item, index) in items" :key="item.id">
+      {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+  </ul> -->
+
+  <!-- <ul>
+    <li v-for="value in object" :key="object.key">
+      {{ value }}
+    </li>
+  </ul> -->
+
+  <!-- 第二个的参数为键名 -->
+  <div v-for="(value, key) in object" :key="object.key">
+    {{ key }}: {{ value }}
+  </div>
+
+  <!-- 第三个参数为索引：
+  <div v-for="(value, key, index) in object" :key="object.key">
+    {{ index }}. {{ key }}: {{ value }}
+  </div> -->
+
+  <!-- 显示过滤/排序结果 -->
+  <li v-for="n in evenNumbers">{{ n }}</li>
+
+  <!-- 一段取值范围的 v-for -->
+  <div>
+    <span v-for="n in 10">{{ n }} </span>
+  </div>
+
+  <!-- 一个组件的 v-for -->
+  <div>
+    <form v-on:submit.prevent="addNewTodo">
+      <label for="new-todo">Add a todo</label>
+      <input v-model="newTodoText" id="new-todo" placeholder="E.g. Feed the cat">
+      <button>Add</button>
+    </form>
+    <ul>
+      <li is="todo-item" v-for="(todo, index) in todos" :key="todo.id" :title="todo.title" v-on:remove="todos.splice(index, 1)"></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  Vue.component('todo-item', {
+    template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">Remove</button>\
+    </li>\
+  ',
+    props: ['title']
+  })
+
+  var vm = new Vue({
+    el: '#listRender',
+    data: {
+      newTodoText: '',
+      nextTodoId: 4,
+      todos: [
+        {
+          id: 1,
+          title: 'Do the dishes',
+        },
+        {
+          id: 2,
+          title: 'Take out the trash',
+        },
+        {
+          id: 3,
+          title: 'Mow the lawn'
+        }
+      ],
+      parentMessage: 'Parent',
+      object: {
+        firstName: 'John',
+        lastName: 'Doe',
+        age: 30
+      },
+      numbers: [1, 2, 3, 4, 5],
+      items: [
+        { message: 'Foo' },
+        { message: 'Bar' }
+      ]
+    },
+
+    computed: {
+      replaceItems: function () {
+        // `this` 指向 vm 实例
+        // Vue.set(this.items, 1, 'Zac');
+        // return vm.items.splice(0, 1, 'Zac');
+        // return this.items.splice(0, 1, 'Zac');
+      },
+      evenNumbers: function () {
+        return this.numbers.filter(function (number) {
+          return number % 2 === 0
+        })
+      }
+    },
+
+    watch: {
+    },
+
+    created: function () {
+      // 对象更改检测注意事项
+      // 对象更改检测注意事项-为对象新增一个属性
+      Vue.set(this.object, 'gender', 'Male');
+
+      // 对象更改检测注意事项-为对象新增多个属性
+      this.object = Object.assign({}, this.object, {
+        Position: 'Software Engineer',
+        Salary: '20000 RMB'
+      })
+    },
+
+    methods: {
+      addNewTodo: function () {
+        this.todos.push({
+          id: this.nextTodoId++,
+          title: this.newTodoText
+        })
+        this.newTodoText = ''
+      }
+    }
+  })
+</script>
