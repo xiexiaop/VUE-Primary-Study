@@ -1,0 +1,69 @@
+<script src="vue.js"></script>
+<!-- 事件处理 -->
+<div id="eventHandle">
+  <!-- 监听事件 -->
+  <div>
+    <button v-on:click="counter += 1">Add 1</button>
+    <button v-on:click="counter -= 1">Substract 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+  </div>
+
+  <!-- 事件处理方法 -->
+  <div>
+    <button @click="greet">Greet</button>
+  </div>
+
+  <!-- 内联处理器中的方法 -->
+  <!-- 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法： -->
+  <div>
+    <button v-on:click="say('hi',$event)">Say hi</button>
+    <button v-on:click="say('what'$event)">Say what</button>
+  </div>
+
+  <!-- 事件修饰符 -->
+  <!-- .stop
+  .prevent
+  .capture
+  .self
+  .once
+  .passive -->
+</div>
+
+<script>
+  var vm = new Vue({
+    el: '#eventHandle',
+    data: {
+      counter: 0,
+      name: 'Vue.js'
+    },
+
+    computed: {
+    },
+
+    watch: {
+    },
+
+    created: function () {
+    },
+
+    methods: {
+      greet: function (event) {
+        // `this` 在方法里指向当前 Vue 实例
+        alert('Hello ' + this.name + '!')
+        // `event` 是原生 DOM 事件
+        if (event) {
+          alert(event.target.tagName)
+        }
+      },
+
+      say: function (message, oEvent) {
+        alert(message);
+        if (oEvent) {
+          alert(oEvent.target.tagName)
+        }
+      }
+    }
+  })
+
+  // vm.greet();
+</script>
