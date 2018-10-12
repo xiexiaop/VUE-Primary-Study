@@ -1,0 +1,171 @@
+<script src="vue.js"></script>
+<!-- 表单输入绑定 -->
+<div id="formInputBinding">
+  <!-- 文本 -->
+  <div>
+    <label for="textId">文本</label>
+    <input id="textId" v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+  </div>
+
+  <!-- 多行文本 -->
+  <!-- 在文本区域插值 (<textarea></textarea>) 并不会生效，应用 v-model 来代替。 -->
+  <div>
+    <label for="multipleLinesTextId">多行文本</label>
+    <textarea id="multipleLinesTextId" v-model="message" placeholder="add multiple lines"></textarea>
+    <br>
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message }}</p>
+  </div>
+
+  <!-- 复选框 -->
+  <div>
+    <label for="checkbox">复选框-{{ checked }}</label>
+    <input type="checkbox" id="checkbox" v-model="checked">
+  </div>
+
+  <!-- 多个复选框，绑定到同一个数组 -->
+  <div>
+    <label for="jack">多个复选框-Jack</label>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+
+    <label for="john">多个复选框-John</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+
+    <label for="mike">多个复选框-Mike</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+  </div>
+
+  <!-- 单选按钮 -->
+  <div>
+    <label for="one">单选按钮-One</label>
+    <input type="radio" id="one" value="One" v-model="picked">
+    <br>
+    <label for="two">单选按钮-Two</label>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <br>
+    <span>Picked: {{ picked }}</span>
+  </div>
+
+  <!-- 选择框 -->
+  <div>
+    <label for="selectedListId">选择框</label>
+    <select id="selectedListId" v-model="selected">
+      <option disabled value="">请选择</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+  </div>
+
+  <!-- 多选时 (绑定到一个数组)： -->
+  <div>
+    <label for="multipleSelectedArray">多选时 (绑定到一个数组)</label>
+    <select id="multipleSelectedArray" v-model="multipleSelected" multiple style="width: 50px;">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{ multipleSelected }}</span>
+  </div>
+
+  <!-- 用 v-for 渲染的动态选项： -->
+  <div>
+    <label for="vFor">v-for 渲染的动态选项</label>
+    <select id="vFor" v-model="selected">
+      <option v-for="option in options" v-bind:value="option.value">
+        {{ option.text }}
+      </option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+  </div>
+
+  <!-- 值绑定-复选框 -->
+  <div>
+    <label for="valueBindCheckbox">值绑定-复选框</label>
+    <input id="valueBindCheckbox" type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+    <span>Selected: {{ toggle }}</span>
+  </div>
+
+  <!-- 值绑定-单选按钮 -->
+  <div>
+    <label for="valueBindSingleSelectedButton">值绑定-单选按钮</label>
+    <input id="valueBindSingleSelectedButton" type="radio" v-model="pick" v-bind:value="a">
+    <span>Selected: {{ pick }}</span>
+  </div>
+
+  <!-- 值绑定-选择框的选项 -->
+  <div>
+    <label for="valueBindSelectedBoxId">值绑定-选择框的选项</label>
+    <select id="valueBindSelectedBoxId" v-model="selectedNumber">
+      <!-- 内联对象字面量 -->
+      <option v-bind:value="{ number: 123 }">123</option>
+      <span>Selected: {{ selectedNumber }}</span>
+    </select>
+  </div>
+
+  <!-- 修饰符 -->
+  <!-- 修饰符-.lazy -->
+  <div>
+    <label for="lazyId">修饰符-.lazy</label>
+    <input id="lazyId" v-model.lazy="lazyMsg">
+  </div>
+
+  <!-- 修饰符-.number -->
+  <div>
+    <label for="numberId">修饰符-.number</label>
+    <input id="numberId" v-model.number="age" type="number">
+  </div>
+
+  <!-- 修饰符-.trim -->
+  <div>
+    <label for="trimId">修饰符-.trim</label>
+    <input id="trimId" v-model.trim="trimMsg">
+  </div>
+</div>
+
+
+<script>
+  var vm = new Vue({
+    el: '#formInputBinding',
+    data: {
+      message: '',
+      checked: true,
+      checkedNames: [],
+      picked: '',
+      selected: '',
+      multipleSelected: [],
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ],
+      toggle: false,
+      pick: false,
+      a: 'aaaaa',
+      selectedNumber: '',
+      lazyMsg: '',
+      age: 99,
+      trimMsg: ''
+    },
+
+    computed: {
+    },
+
+    watch: {
+    },
+
+    created: function () {
+    },
+
+    methods: {
+
+    }
+  })
+
+</script>
