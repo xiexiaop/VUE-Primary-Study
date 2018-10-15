@@ -12,16 +12,18 @@
   <div>
     <blog-post v-for="post in posts" v-bind:post="post" v-bind:key="post.id"></blog-post>
   </div>
+
+  <!-- 动态组件 -->
+  <div>
+    <button v-for="tab in tabs" v-bind:tab="tab" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
+      v-on:click="currentTab = tab">{{
+      tab }}</button>
+
+    <component v-bind:is="currentTabComponent" class="tab"></component>
+  </div>
 </div>
 
-<!-- 动态组件 -->
-<div>
-  <button v-for="tab in tabs" v-bind:tab="tab" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab }]"
-    v-on:click="currentTab = tab">{{
-    tab }}</button>
 
-  <component v-bind:is="currentTabComponent" class="tab"></component>
-</div>
 <script>
   // 定义一个名为 button-counter 的新组件
   Vue.component('button-counter', {
