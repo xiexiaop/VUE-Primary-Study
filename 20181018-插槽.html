@@ -1,0 +1,102 @@
+<!-- 插槽 -->
+<script src="vue.js"></script>
+
+<div id="slot">
+  <div>
+    <navigation-link>
+      <div>
+        <span>aaa</span>
+      </div>
+      Your Profile
+    </navigation-link>
+  </div>
+
+  <!-- 在向具名插槽提供内容的时候，我们可以在一个父组件的 <template> 元素上使用 slot 特性： -->
+  <div>
+    <base-layout>
+      <template slot="header">
+        <h1>Here might be a page title</h1>
+      </template>
+
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
+
+      <template slot="footer">
+        <p>Here's some contact info</p>
+      </template>
+    </base-layout>
+  </div>
+
+  <!-- 另一种 slot 特性的用法是直接用在一个普通的元素上： -->
+  <div>
+    <base-layout>
+      <h1 slot="header">Here might be a page title</h1>
+
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
+
+      <p slot="footer">Here's some contact info</p>
+    </base-layout>
+  </div>
+
+  <!-- 作用域插槽 -->
+  <div>
+    <todo-list v-bind:todos="todos">
+    </todo-list>
+  </div>
+</div>
+
+<script>
+  Vue.component('navigation-link', {
+    props: ['url'],
+    template: '\
+      <a v-bind:href="url">\
+        <slot></slot>\
+      </a>\
+    '
+  })
+
+  Vue.component('base-layout', {
+    template: '\
+    <div class="container">\
+      <header>\
+        <slot name="header"></slot>\
+      </header>\
+      <main>\
+        <slot></slot>\
+      </main>\
+      <footer>\
+        <slot name="footer"></slot>\
+      </footer>\
+    </div>\
+  '
+  })
+
+  Vue.component('todo-list', {
+    props: ['todos'],
+    template: '\
+    <ul>\
+      <li v-for="todo in todos" v-bind:key="todo.id">\
+        <slot v-bind:todo="todo">\
+          {{ todo.text }}\
+        </slot>\
+      </li>\
+    </ul>\
+    '
+  })
+
+  new Vue({
+    el: '#slot',
+    data: {
+      url: "www.baidu.com",
+      todos: [
+        { text: "1" },
+        { text: "2" },
+        { text: "3" },
+        { text: "4" }]
+    },
+    computed: {
+
+    }
+  })
+</script>
