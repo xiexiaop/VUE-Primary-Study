@@ -1,0 +1,38 @@
+<!-- 处理边界情况－程序化的事件侦听器 -->
+<script src="vue.js"></script>
+<script src="https://unpkg.com/pickaday@1.7.0"></script>
+
+<div id="programEventListener">
+  <div>
+    <input ref="dateInput" v-model="date" type="date">
+  </div>
+</div>
+<script>
+
+
+  new Vue({
+    el: '#programEventListener',
+    data: {
+      date: null
+    },
+
+    mounted: function () {
+      var picker = new Pikaday({
+        field: this.$refs.dateInput,
+        format: 'YYYY-MM-DD'
+      })
+
+      this.$once('hook:beforeDestroy', function () {
+        picker.destroy()
+      })
+    }
+
+    computed: {
+
+    }
+  })
+</script>
+
+<style>
+
+</style>
